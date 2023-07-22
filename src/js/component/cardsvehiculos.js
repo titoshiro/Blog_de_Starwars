@@ -1,11 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
+import { AppContext } from "../store/appContext";
 
 const CardsVehiculos = () => {
   const [vehiculos, setVehiculos] = useState([]);
+  const { favorites, addToFavorites, removeFromFavorites } =
+    useContext(AppContext);
 
+  const isFavorite = (vehiculos) => {
+    return favorites.some((fav) => fav.id === vehiculos.id);
+  };
   useEffect(() => {
     fetch("https://swapi.dev/api/vehicles/")
       .then((response) => response.json())
@@ -33,19 +39,26 @@ const CardsVehiculos = () => {
             >
               Aprende más!
             </Link>
-            <a
-              href="#"
-              className="btn btn-outline-warning position-absolute bottom-5 end-0 m-2"
+            <button
+              onClick={() =>
+                isFavorite(character)
+                  ? removeFromFavorites(character)
+                  : addToFavorites(character)
+              }
             >
-              <FontAwesomeIcon icon={faHeart} style={{ color: "#fef84d" }} />
-            </a>
+              <FontAwesomeIcon
+                icon={faHeart}
+                style={{
+                  color: isFavorite(vehiculos) ? "red" : "gray",
+                }}
+              />
+            </button>
           </div>
         </div>
       ))}
     </div>
   );
 };
-
 const getVehiculoId = (url) => {
   const matches = url.match(/\/(\d+)\/$/);
   return matches ? matches[1] : "";

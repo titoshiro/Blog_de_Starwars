@@ -1,19 +1,58 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import star from "../component/img/otra.png";
+import { AppContext } from "../store/appContext"; // Importa el contexto
+import "../component/styles/navbar.css";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export const Navbar = () => {
+const Navbar = () => {
+  // Accede al contexto utilizando el hook useContext
+  const { favorites, addToFavorites, removeFromFavorites } =
+    useContext(AppContext);
+
   return (
-    <div className="container">
-      <nav className="navbar navbar-light bg-light mb-3">
+    <div>
+      <nav className="navbar navbar-light bg-back mb-5">
         <Link to="/">
-          <span className="navbar-brand mb-0 h1">
-            Star <br /> Wars
-          </span>
+          <img className="logo" src={star} alt="Star"></img>
         </Link>
-        <div className="ml-auto">
-          <button className="btn btn-primary ">Favorites</button>
+        <div className="spacer"></div>
+        <div className="left-content">
+          <div className="dropdown">
+            <button
+              className="btndrop dropdown-toggle"
+              type="button"
+              id="favoritesDropdown"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Favoritos
+            </button>
+            <ul className="dropdown-menu" aria-labelledby="favoritesDropdown">
+              {favorites.length > 0 ? (
+                favorites.map((character) => (
+                  <li key={character.url}>
+                    <p>{character.name}</p>
+                    <button
+                      className="dropdown-item"
+                      onClick={() => removeFromFavorites(character)}
+                    >
+                      <FontAwesomeIcon icon={faTrash} className="me-2" />
+                    </button>
+                  </li>
+                ))
+              ) : (
+                <li>
+                  <p className="dropdown-item">No hay personajes favoritos</p>
+                </li>
+              )}
+            </ul>
+          </div>
         </div>
       </nav>
     </div>
   );
 };
+
+export { Navbar };
