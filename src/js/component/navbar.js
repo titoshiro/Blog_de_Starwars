@@ -1,13 +1,12 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import star from "../component/img/otra.png";
-import { AppContext } from "../store/appContext"; // Importa el contexto
+import { AppContext } from "../store/appContext";
 import "../component/styles/navbar.css";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Navbar = () => {
-  // Accede al contexto utilizando el hook useContext
   const { favorites, addToFavorites, removeFromFavorites } =
     useContext(AppContext);
 
@@ -27,24 +26,29 @@ const Navbar = () => {
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              Favoritos
+              Favoritos ({favorites.length})
             </button>
             <ul className="dropdown-menu" aria-labelledby="favoritesDropdown">
               {favorites.length > 0 ? (
-                favorites.map((character) => (
-                  <li key={character.url}>
-                    <p>{character.name}</p>
-                    <button
-                      className="dropdown-item"
-                      onClick={() => removeFromFavorites(character)}
-                    >
-                      <FontAwesomeIcon icon={faTrash} className="me-2" />
-                    </button>
+                favorites.map((item) => (
+                  <li key={item.url}>
+                    <p className="favorite-item">
+                      {item.name}
+                      <button
+                        className="btn-delete"
+                        onClick={() => removeFromFavorites(item)}
+                      >
+                        <FontAwesomeIcon icon={faTrash} />
+                      </button>
+                    </p>
                   </li>
                 ))
               ) : (
                 <li>
-                  <p className="dropdown-item">No hay personajes favoritos</p>
+                  <p className="dropdown-item text-center">
+                    No hay personajes <br />
+                    favoritos
+                  </p>
                 </li>
               )}
             </ul>

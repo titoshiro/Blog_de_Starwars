@@ -3,7 +3,7 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { AppContext } from "../store/appContext";
-import "./styles/cardpersonajes.css";
+import "../component/styles/card.css";
 
 const CardsPersonajes = ({ getActions }) => {
   const [characters, setCharacters] = useState([]);
@@ -12,7 +12,15 @@ const CardsPersonajes = ({ getActions }) => {
     useContext(AppContext);
 
   const isFavorite = (character) => {
-    return favorites.some((fav) => fav.id === character.id);
+    return favorites.some((fav) => fav.url === character.url);
+  };
+
+  const toggleFavorite = (character) => {
+    if (isFavorite(character)) {
+      removeFromFavorites(character);
+    } else {
+      addToFavorites(character);
+    }
   };
 
   useEffect(() => {
@@ -44,14 +52,14 @@ const CardsPersonajes = ({ getActions }) => {
             className="card-img-top"
             alt={character.name}
           />
-          <div className="card-body-personaje">
+          <div className="card-body">
             <h5 className="card-title">{character.name}</h5>
             <p className="card-text">
-              Height: {character.height} cm
+              Altura: {character.height} cm
               <br />
-              Mass: {character.mass} kg
+              Peso: {character.mass} kg
               <br />
-              Hair Color: {character.hair_color}
+              Color de pelo: {character.hair_color}
               <br />
             </p>
             <Link
@@ -62,10 +70,15 @@ const CardsPersonajes = ({ getActions }) => {
               Aprende más!
             </Link>
             <button
-              className="btn btn-outline-warning position-absolute bottom-5 end-0 "
-              onClick={() => addToFavorites(character)}
+              className="btn btn-outline-light position-absolute bottom-5 end-0 "
+              onClick={() => toggleFavorite(character)}
             >
-              <FontAwesomeIcon icon={faHeart} style={{ color: "#fef84d" }} />
+              <FontAwesomeIcon
+                icon={faHeart}
+                style={{
+                  color: isFavorite(character) ? "rgb(5, 223, 252)" : "white",
+                }}
+              />
             </button>
           </div>
         </div>

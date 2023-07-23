@@ -15,22 +15,48 @@
     box-shadow: 0 0 10px #ffffff;
 }
 .btndrop {
-    background-color: #f7e437;
+    background-color: rgb(5, 223, 252);
     margin-right: 100px;
     border-radius: 30px;
     width: 150px;
     height: 40px;
     font-size: 17px;
     font-family: "Roboto", sans-serif;
-    transition: box-shadow 0.3s ease;
+    transition: box-shadow 0.2s ease;
     box-shadow: 0 0 0 transparent;
 }
 
 .btndrop:hover {
-    box-shadow: 0 0 10px #f7e437;
+    box-shadow: 2px 2px 20px rgb(255, 255, 255);
 }
 
 .dropdown-menu {
-    background-color: #f7e437;
+    background-color: rgb(5, 223, 252);
     font-family: Arial, Helvetica, sans-serif;
+    justify-content: center;
+    width: 50px;
+    transition: box-shadow 0.3s ease;
+}
+.dropdown-menu:hover {
+    box-shadow: 0 0 10px rgb(1, 26, 138);
+}
+
+.favorite-item {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 3px;
+    margin-left: 3px;
+}
+.favorite-item:hover {
+    box-shadow: 0 0 10px #040404;
+}
+
+.btn-delete {
+    background: transparent;
+    border: 1px solid rgb(5, 0, 1);
+    cursor: pointer;
+    color: rgb(3, 8, 37);
+}
+.btn-delete:hover {
+    box-shadow: 0 0 10px #040404;
 }

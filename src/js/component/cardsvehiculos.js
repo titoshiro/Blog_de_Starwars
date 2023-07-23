@@ -3,15 +3,25 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { AppContext } from "../store/appContext";
+import "../component/styles/card.css";
 
 const CardsVehiculos = () => {
   const [vehiculos, setVehiculos] = useState([]);
   const { favorites, addToFavorites, removeFromFavorites } =
     useContext(AppContext);
 
-  const isFavorite = (vehiculos) => {
-    return favorites.some((fav) => fav.id === vehiculos.id);
+  const isFavorite = (vehiculo) => {
+    return favorites.some((fav) => fav.url === vehiculo.url);
   };
+
+  const toggleFavorite = (vehiculo) => {
+    if (isFavorite(vehiculo)) {
+      removeFromFavorites(vehiculo);
+    } else {
+      addToFavorites(vehiculo);
+    }
+  };
+
   useEffect(() => {
     fetch("https://swapi.dev/api/vehicles/")
       .then((response) => response.json())
@@ -35,21 +45,18 @@ const CardsVehiculos = () => {
             <p className="card-text">Fabricante: {vehiculo.manufacturer}</p>
             <Link
               to={`/vehiculos/${getVehiculoId(vehiculo.url)}`}
-              className="btn btn-outline-primary"
+              className="btn btn-outline-light"
             >
               Aprende más!
             </Link>
             <button
-              onClick={() =>
-                isFavorite(character)
-                  ? removeFromFavorites(character)
-                  : addToFavorites(character)
-              }
+              className="btn btn-outline-light position-absolute bottom-5 end-0 "
+              onClick={() => toggleFavorite(vehiculo)}
             >
               <FontAwesomeIcon
                 icon={faHeart}
                 style={{
-                  color: isFavorite(vehiculos) ? "red" : "gray",
+                  color: isFavorite(vehiculo) ? "rgb(5, 223, 252)" : "white",
                 }}
               />
             </button>
@@ -59,6 +66,7 @@ const CardsVehiculos = () => {
     </div>
   );
 };
+
 const getVehiculoId = (url) => {
   const matches = url.match(/\/(\d+)\/$/);
   return matches ? matches[1] : "";
