@@ -63,7 +63,7 @@ const CardsPersonajes = ({ getActions }) => {
               <br />
             </p>
             <Link
-              to={`/characters/${getCharacterId(character.url)}`}
+              to={`/personajes/${getCharacterId(character.url)}`}
               className="btn btn-outline-light"
               onClick={() => handleLearnMore(getCharacterId(character.url))}
             >

@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import { Home } from "./views/home";
-import { Single } from "./views/single";
+import { Personajes } from "./views/personajes";
+import { Planeta } from "./views/planeta";
+import { Vehiculos } from "./views/vehiculos";
 import { AppProvider } from "./store/appContext";
-import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import "./component/styles/index.css";
-import { CardsPersonajes } from "./component/cardsPersonajes";
-import { CardsPlanetas } from "./component/cardsPlanetas";
 
 const Layout = () => {
   useEffect(() => {
@@ -24,16 +23,13 @@ const Layout = () => {
           <AppProvider>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/characters/:theid" element={<Single />} />
-              <Route path="/characters" element={<CardsPersonajes />} />{" "}
-              {/* Agrega esta ruta */}
-              <Route path="/planets" element={<CardsPlanetas />} />{" "}
-              {/* Agrega esta ruta */}
-              <Route path="*" element={<h1>Not found!</h1>} />
+              <Route path="/personajes/:theid" element={<Personajes />} />
+              <Route path="/planeta/:theid" element={<Planeta />} />
+              <Route path="/vehiculos/:theid" element={<Vehiculos />} />
             </Routes>
-            <Footer />
           </AppProvider>
         </ScrollToTop>
+        <Footer />
       </BrowserRouter>
     </div>
   );

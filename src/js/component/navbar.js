@@ -11,8 +11,8 @@ const Navbar = () => {
     useContext(AppContext);
 
   return (
-    <div>
-      <nav className="navbar navbar-light bg-back mb-5">
+    <div className="main-content">
+      <nav className="navbar navbar-light bg-back mb-5 fixed-top">
         <Link to="/">
           <img className="logo" src={star} alt="Star"></img>
         </Link>

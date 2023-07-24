@@ -4,13 +4,13 @@ import { AppContext } from "../store/appContext";
 import "../component/styles/single.css";
 import { Navbar } from "../component/navbar";
 
-const Single = () => {
+const Personajes = () => {
   const { favorites, addToFavorites, removeFromFavorites } =
     useContext(AppContext);
 
-  const { theid } = useParams();
-
   const [character, setCharacter] = useState(null);
+
+  const { theid } = useParams();
 
   const isFavorite =
     character && favorites.some((fav) => fav.id === character.id);
@@ -99,7 +99,7 @@ const Single = () => {
                   <br />
                   <br />
                   <button className="btnsingle">
-                    <Link to="/">Home</Link>
+                    <Link to="/">Volver</Link>
                   </button>
                 </div>
               </div>
@@ -115,4 +115,4 @@ const Single = () => {
   );
 };
 
-export { Single };
+export { Personajes };

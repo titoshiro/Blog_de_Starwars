@@ -60,3 +60,6 @@
 .btn-delete:hover {
     box-shadow: 0 0 10px #040404;
 }
+.main-content {
+    margin-top: 150px;
+}

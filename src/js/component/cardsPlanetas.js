@@ -21,12 +21,17 @@ const CardsPlanetas = () => {
       addToFavorites(planeta);
     }
   };
+  const getPlanetaId = (url) => {
+    const matches = url.match(/\/(\d+)\/$/);
+    return matches ? matches[1] : "";
+  };
+
   useEffect(() => {
     fetch("https://swapi.dev/api/planets/")
       .then((response) => response.json())
       .then((data) => setPlanetas(data.results));
   }, []);
-
+  console.log("Lista de planetas:", planetas); // Agrega este console.log
   const handleLearnMore = (planetaId) => {
     fetch(`https://swapi.dev/api/planets/${planetaId}/`)
       .then((response) => response.json())
@@ -55,7 +60,7 @@ const CardsPlanetas = () => {
             <p className="card-text">Clima: {planeta.climate}</p>
             <p className="card-text">Terreno: {planeta.terrain}</p>
             <Link
-              to={`/planets/${getPlanetaId(planeta.url)}`}
+              to={`/planeta/${getPlanetaId(planeta.url)}`}
               className="btn btn-outline-light"
               onClick={() => handleLearnMore(getPlanetaId(planeta.url))}
             >
@@ -77,11 +82,6 @@ const CardsPlanetas = () => {
       ))}
     </div>
   );
-};
-
-const getPlanetaId = (url) => {
-  const matches = url.match(/\/(\d+)\/$/);
-  return matches ? matches[1] : "";
 };
 
 export { CardsPlanetas };
