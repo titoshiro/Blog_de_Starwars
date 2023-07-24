@@ -31,14 +31,11 @@ const CardsPlanetas = () => {
       .then((response) => response.json())
       .then((data) => setPlanetas(data.results));
   }, []);
-  console.log("Lista de planetas:", planetas); // Agrega este console.log
+
   const handleLearnMore = (planetaId) => {
     fetch(`https://swapi.dev/api/planets/${planetaId}/`)
       .then((response) => response.json())
-      .then((data) => {
-        console.log("Planeta details:", data);
-        // Aquí puedes hacer algo con los detalles del planeta obtenidos de la API
-      })
+      .then((data) => {})
       .catch((error) => {
         console.error("Error fetching planeta details:", error);
       });
